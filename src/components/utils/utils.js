@@ -1,6 +1,6 @@
 import axios from 'axios';
 const apiUrl = `https://pixabay.com/api/`
-const apiKey = `25529223-8f6f85d274c575e2cc052ff49`
+const apiKey = import.meta.env.VITE_API_KEY
 
 export const getImages = async (searchText, imageQuantity) => {
     try {
