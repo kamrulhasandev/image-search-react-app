@@ -1,15 +1,30 @@
 
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import './App.css'
 import Navbar from './components/Navbar/Navbar'
 import SearchField from './components/SearchField/SearchField'
+import Images from './components/Images/Images'
+import { getImages } from './components/utils/utils'
 
 function App() {
+
+  const [searchText, setSearchText] = useState('')
+  const [imageQuantity, setImageQuantity] = useState(5)
+  const [data, setData] = useState([])
+
+  useEffect(()=>{
+    const getData = async () => {
+    const response =  await getImages(searchText, imageQuantity);
+    setData(response?.data.hits);
+    }
+    getData();
+  },[searchText, imageQuantity])
 
   return (
     <div>
       <Navbar/>
-      <SearchField/>
+      <SearchField setSearchText={setSearchText} setImageQuantity={setImageQuantity}/>
+      <Images data={data}/>
     </div>
   )
 }
